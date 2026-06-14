@@ -39,13 +39,16 @@ app.use(
   })
 );
 
+// Vercel strips routePrefix (/api) before forwarding; Docker/local keep full paths.
+const API_PREFIX = process.env.VERCEL ? "" : "/api";
+
 // Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/transactions", transactionsRoutes);
-app.use("/api/expenses", expensesRoutes);
-app.use("/api/goals", goalsRoutes);
-app.use("/api/balance", balanceRoutes);
-app.use("/api/categories", categoriesRoutes);
+app.use(`${API_PREFIX}/auth`, authRoutes);
+app.use(`${API_PREFIX}/transactions`, transactionsRoutes);
+app.use(`${API_PREFIX}/expenses`, expensesRoutes);
+app.use(`${API_PREFIX}/goals`, goalsRoutes);
+app.use(`${API_PREFIX}/balance`, balanceRoutes);
+app.use(`${API_PREFIX}/categories`, categoriesRoutes);
 
 // Health check endpoint
 app.get("/health", (req, res) => {
