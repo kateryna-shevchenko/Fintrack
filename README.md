@@ -29,7 +29,7 @@ FinTrack is a personal finance management application that enables users to trac
 Clone the repository:
 
 ```bash
-git clone https://github.com/Dares1868/Fintrack.git
+git clone https://github.com/kateryna-shevchenko/Fintrack.git
 cd Fintrack
 ```
 
