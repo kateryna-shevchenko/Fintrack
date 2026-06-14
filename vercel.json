@@ -8,7 +8,7 @@
             "root": "backend",
             "entrypoint": "src/server.js",
             "framework": "express",
-            "routePrefix": "/_/backend"
+            "routePrefix": "/api"
         }
     }
 }

@@ -69,12 +69,18 @@ const startServer = async () => {
     await initializeDatabase();
     console.log("Database initialized successfully");
 
+    if (process.env.VERCEL) {
+      return;
+    }
+
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server is running on http://0.0.0.0:${PORT}`);
     });
   } catch (error) {
     console.error("Failed to start server:", error);
-    process.exit(1);
+    if (!process.env.VERCEL) {
+      process.exit(1);
+    }
   }
 };
 

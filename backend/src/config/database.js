@@ -11,6 +11,12 @@ const dbConfig = {
   queueLimit: 0,
 };
 
+if (process.env.DB_SSL_CA) {
+  dbConfig.ssl = {
+    ca: process.env.DB_SSL_CA.replace(/\\n/g, "\n"),
+  };
+}
+
 let pool;
 
 const initializeDatabase = async () => {
