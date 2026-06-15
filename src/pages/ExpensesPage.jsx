@@ -5,6 +5,7 @@ import DonutChart from "../components/ui/DonutChart1";
 import { getExpenses } from "../services/expenseService";
 import "../styles/expenses.css";
 import { translate } from "../utils/dictionary";
+import getApiBaseUrl from "../config/api.js";
 import { useLanguage } from "../context/LanguageContext";
 
 const CATEGORY_COLORS = {
@@ -111,9 +112,8 @@ const ExpensesPage = () => {
     const sessionRefresh = setInterval(
       async () => {
         try {
-          const API_URL =
-            import.meta.env.VITE_API_URL || "http://localhost:3001";
-          await fetch(`${API_URL}/health`, {
+          const API_URL = getApiBaseUrl();
+          await fetch(`${API_URL}/api/health`, {
             credentials: "include",
           });
         } catch (error) {

@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || "";
+import getApiBaseUrl from "../config/api.js";
+
+const API_URL = getApiBaseUrl();
 
 // Get all goals for the logged-in user
 export const getGoals = async () => {

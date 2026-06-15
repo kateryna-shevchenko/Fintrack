@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SidebarMenu from "../components/ui/SidebarMenu";
 import { getExpenses } from "../services/expenseService";
+import getApiBaseUrl from "../config/api.js";
 import "../styles/transactions.css";
 
 const CategoryTransactionsPage = () => {
@@ -42,9 +43,8 @@ const CategoryTransactionsPage = () => {
     const sessionRefresh = setInterval(
       async () => {
         try {
-          const API_URL =
-            import.meta.env.VITE_API_URL || "http://localhost:3001";
-          await fetch(`${API_URL}/health`, {
+          const API_URL = getApiBaseUrl();
+          await fetch(`${API_URL}/api/health`, {
             credentials: "include",
           });
         } catch (error) {

@@ -5,6 +5,7 @@ import "../styles/dashboard.css";
 import "../styles/goals.css";
 import * as goalService from "../services/goalService";
 import { translate } from "../utils/dictionary";
+import getApiBaseUrl from "../config/api.js";
 import { useLanguage } from "../context/LanguageContext";
 import {
   PaperAirplaneIcon,
@@ -183,9 +184,8 @@ const GoalsPage = () => {
     const sessionRefresh = setInterval(
       async () => {
         try {
-          const API_URL =
-            import.meta.env.VITE_API_URL || "http://localhost:3001";
-          await fetch(`${API_URL}/health`, {
+          const API_URL = getApiBaseUrl();
+          await fetch(`${API_URL}/api/health`, {
             credentials: "include",
           });
         } catch (error) {

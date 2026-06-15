@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+import getApiBaseUrl from "../config/api.js";
+
+const API_URL = getApiBaseUrl();
 
 // Get all transactions for the logged-in user
 export const getTransactions = async () => {

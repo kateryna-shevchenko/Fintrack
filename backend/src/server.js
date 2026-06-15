@@ -51,9 +51,13 @@ app.use(`${API_PREFIX}/balance`, balanceRoutes);
 app.use(`${API_PREFIX}/categories`, categoriesRoutes);
 
 // Health check endpoint
-app.get("/health", (req, res) => {
+const healthHandler = (req, res) => {
   res.json({ status: "OK", message: "Fintrack Backend is running" });
-});
+};
+app.get("/health", healthHandler);
+if (API_PREFIX) {
+  app.get(`${API_PREFIX}/health`, healthHandler);
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {

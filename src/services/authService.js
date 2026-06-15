@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || "";
+import getApiBaseUrl from "../config/api.js";
+
+const API_BASE_URL = getApiBaseUrl();
 
 class AuthService {
   async register(userData) {

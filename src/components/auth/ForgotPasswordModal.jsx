@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { translate } from "../../utils/dictionary";
 import { useLanguage } from "../../context/LanguageContext";
+import getApiBaseUrl from "../../config/api.js";
 import "../../styles/auth.css";
 
 const ForgotPasswordModal = ({ isOpen, onClose }) => {
@@ -18,7 +19,7 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
     setMessage("");
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+      const API_URL = getApiBaseUrl();
       const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
         method: "POST",
         headers: {

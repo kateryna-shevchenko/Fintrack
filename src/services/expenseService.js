@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || "";
+import getApiBaseUrl from "../config/api.js";
+
+const API_URL = getApiBaseUrl();
 
 // Get all expenses with optional filtering
 export const getExpenses = async (filters = {}) => {
