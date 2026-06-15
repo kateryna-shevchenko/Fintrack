@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const mysql = require("mysql2/promise");
 
 const dbConfig = {
@@ -19,13 +21,44 @@ if (process.env.DB_SSL_CA) {
 
 let pool;
 
+const ensureSchema = async (connection) => {
+  const dbName = dbConfig.database;
+
+  const [tables] = await connection.query(
+    "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'users'",
+    [dbName],
+  );
+
+  if (tables.length > 0) {
+    return;
+  }
+
+  const initSqlPath = path.join(__dirname, "../../database/init.sql");
+  const initSql = fs.readFileSync(initSqlPath, "utf8");
+
+  const statements = initSql
+    .split(";")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0)
+    .filter((s) => !/^CREATE DATABASE/i.test(s))
+    .filter((s) => !/^USE /i.test(s));
+
+  for (const statement of statements) {
+    await connection.query(statement);
+  }
+
+  console.log("Database schema initialized successfully");
+};
+
 const initializeDatabase = async () => {
   try {
     pool = mysql.createPool(dbConfig);
 
-    // Test connection
     const connection = await pool.getConnection();
     console.log("Database connected successfully!");
+
+    await ensureSchema(connection);
+
     connection.release();
 
     return pool;
