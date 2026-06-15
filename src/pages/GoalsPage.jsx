@@ -233,7 +233,7 @@ const GoalsPage = () => {
       targetDate: form.targetDate,
       icon: form.isCustomCategory
         ? form.customIcon
-        : form.category?.icon || form.category?.iconName,
+        : form.category?.iconName,
       color: form.isCustomCategory ? form.customColor : form.category?.color,
       categoryName: form.isCustomCategory
         ? form.customCategoryName

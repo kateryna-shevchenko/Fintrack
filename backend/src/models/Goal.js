@@ -67,6 +67,9 @@ class Goal {
       status = "active",
     } = goalData;
 
+    const normalizedIcon =
+      typeof icon === "string" && icon.trim() !== "" ? icon.trim() : null;
+
     const [result] = await db.query(
       `INSERT INTO goals 
         (user_id, title, description, target_amount, target_date, icon, color, category_name, status) 
@@ -77,7 +80,7 @@ class Goal {
         description || null,
         target,
         targetDate || null,
-        icon || null,
+        normalizedIcon,
         color || "#a682ff",
         categoryName || null,
         status,
