@@ -1,7 +1,18 @@
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  cursor: pointer;
+}
+
 .sidebar-menu {
   position: fixed;
   top: 0;
-  right: -260px;
+  right: 0;
   width: 260px;
   height: 100vh;
   background: #1a1833;
@@ -10,11 +21,13 @@
   flex-direction: column;
   gap: 24px;
   padding: 40px 24px 24px 24px;
-  z-index: 1000;
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .sidebar-menu.open {
-  right: 0;
+  transform: translateX(0);
 }
 
 .sidebar-lang-switcher {
