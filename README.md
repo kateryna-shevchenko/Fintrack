@@ -21,6 +21,8 @@ FinTrack is a personal finance management application that enables users to trac
 - Express.js
 - MySQL
 - Docker
+- Vitest (frontend unit tests)
+- Jest (backend unit tests)
 
 ## Getting Started
 
