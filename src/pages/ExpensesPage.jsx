@@ -4,6 +4,8 @@ import SidebarMenu from "../components/ui/SidebarMenu";
 import DonutChart from "../components/ui/DonutChart1";
 import { getExpenses } from "../services/expenseService";
 import "../styles/expenses.css";
+import "../styles/dashboard.css";
+import "../styles/goals.css";
 import { translate } from "../utils/dictionary";
 import getApiBaseUrl from "../config/api.js";
 import { useLanguage } from "../context/LanguageContext";

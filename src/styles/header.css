@@ -9,6 +9,36 @@
   padding: 40px 32px 0;
   z-index: 100;
   box-sizing: border-box;
+  pointer-events: none;
+}
+
+.app-header-logo,
+.app-header-actions,
+.app-header-actions * {
+  pointer-events: auto;
+}
+
+.burger-btn,
+.back-btn {
+  position: fixed;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 110;
+  padding: 8px;
+  line-height: 1;
+}
+
+.burger-btn {
+  right: 32px;
+  top: 36px;
+}
+
+.back-btn {
+  top: 36px;
+  left: 32px;
 }
 
 .app-header--app {
@@ -95,5 +125,15 @@
 
   .app-header-logo {
     font-size: 1.2rem;
+  }
+
+  .burger-btn {
+    right: 24px;
+    top: 40px;
+  }
+
+  .back-btn {
+    left: 24px;
+    top: 40px;
   }
 }
