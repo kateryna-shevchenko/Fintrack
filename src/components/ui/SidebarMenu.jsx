@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 import "../../styles/sidebarMenu.css";
@@ -7,8 +8,29 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 const SidebarMenu = ({ open, onClose }) => {
   const navigate = useNavigate();
+  const [mounted, setMounted] = useState(open);
+  const [visible, setVisible] = useState(false);
 
-  if (!open) {
+  useEffect(() => {
+    if (open) {
+      setMounted(true);
+      const frame = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setVisible(true));
+      });
+      return () => cancelAnimationFrame(frame);
+    }
+
+    setVisible(false);
+  }, [open]);
+
+  const handlePanelTransitionEnd = (event) => {
+    if (event.propertyName !== "transform" || visible) {
+      return;
+    }
+    setMounted(false);
+  };
+
+  if (!mounted) {
     return null;
   }
 
@@ -16,11 +38,14 @@ const SidebarMenu = ({ open, onClose }) => {
     <>
       <button
         type="button"
-        className="sidebar-backdrop"
+        className={`sidebar-backdrop${visible ? " open" : ""}`}
         aria-label="Close menu"
         onClick={onClose}
       />
-      <div className="sidebar-menu open">
+      <div
+        className={`sidebar-menu${visible ? " open" : ""}`}
+        onTransitionEnd={handlePanelTransitionEnd}
+      >
         <button type="button" className="sidebar-close" onClick={onClose}>
           ×
         </button>
