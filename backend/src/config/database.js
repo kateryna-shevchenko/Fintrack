@@ -23,37 +23,6 @@ if (process.env.DB_SSL === "true" || process.env.DB_SSL_CA) {
 let pool;
 let initPromise;
 
-const logDbDiagnostics = (phase, error = null) => {
-  const payload = {
-    sessionId: "a11bbb",
-    runId: "pre-fix",
-    hypothesisId: error ? "C" : "A",
-    location: "database.js:diagnostics",
-    message: phase,
-    data: {
-      host: dbConfig.host,
-      port: dbConfig.port,
-      database: dbConfig.database,
-      hasSsl: Boolean(dbConfig.ssl),
-      isVercel: Boolean(process.env.VERCEL),
-      isDockerDefaultHost: dbConfig.host === "fintrack-mysql",
-      errorCode: error?.code ?? null,
-    },
-    timestamp: Date.now(),
-  };
-  // #region agent log
-  console.log("[DEBUG-a11bbb]", JSON.stringify(payload));
-  fetch("http://127.0.0.1:7576/ingest/3b1a907b-1e04-4691-a7d8-b3a7596bda96", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "a11bbb",
-    },
-    body: JSON.stringify(payload),
-  }).catch(() => {});
-  // #endregion
-};
-
 const ensureSchema = async (connection) => {
   const dbName = dbConfig.database;
 
@@ -93,8 +62,6 @@ const initializeDatabase = async () => {
   }
 
   initPromise = (async () => {
-    logDbDiagnostics("database connect attempt");
-
     if (process.env.VERCEL && dbConfig.host === "fintrack-mysql") {
       const configError = new Error(
         "DB_HOST is not set for Vercel. Use your hosted MySQL hostname, not fintrack-mysql.",
@@ -113,16 +80,9 @@ const initializeDatabase = async () => {
 
       connection.release();
 
-      // #region agent log
-      logDbDiagnostics("database connect success");
-      // #endregion
-
       return pool;
     } catch (error) {
       pool = null;
-      // #region agent log
-      logDbDiagnostics("database connect failed", error);
-      // #endregion
       console.error("Database connection failed:", error);
       throw error;
     } finally {

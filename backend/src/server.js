@@ -32,15 +32,38 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // Set to true in production with HTTPS
+      secure: false,
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
   })
 );
 
-// Vercel strips routePrefix (/api) before forwarding; Docker/local keep full paths.
+
 const API_PREFIX = process.env.VERCEL ? "" : "/api";
+
+
+const healthHandler = (req, res) => {
+  res.json({ status: "OK", message: "Fintrack Backend is running" });
+};
+app.get("/health", healthHandler);
+if (API_PREFIX) {
+  app.get(`${API_PREFIX}/health`, healthHandler);
+}
+
+
+app.use(async (req, res, next) => {
+  try {
+    await initializeDatabase();
+    next();
+  } catch (error) {
+    console.error("Database initialization failed:", error);
+    res.status(503).json({
+      error: "Database unavailable",
+      details: error.message,
+    });
+  }
+});
 
 // Routes
 app.use(`${API_PREFIX}/auth`, authRoutes);
@@ -50,16 +73,7 @@ app.use(`${API_PREFIX}/goals`, goalsRoutes);
 app.use(`${API_PREFIX}/balance`, balanceRoutes);
 app.use(`${API_PREFIX}/categories`, categoriesRoutes);
 
-// Health check endpoint
-const healthHandler = (req, res) => {
-  res.json({ status: "OK", message: "Fintrack Backend is running" });
-};
-app.get("/health", healthHandler);
-if (API_PREFIX) {
-  app.get(`${API_PREFIX}/health`, healthHandler);
-}
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong!" });

@@ -1,0 +1,99 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 32px 0;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.app-header--app {
+  padding-right: 72px;
+}
+
+.app-header--no-logo {
+  justify-content: flex-end;
+}
+
+.app-header-logo {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background: linear-gradient(70deg, #9777df 0%, #9777df 30%, #4455ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-header-github {
+  background: rgba(124, 110, 230, 0.2);
+  border: 1px solid rgba(124, 110, 230, 0.4);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.app-header-github:hover {
+  background: rgba(124, 110, 230, 0.3);
+  border-color: rgba(124, 110, 230, 0.6);
+}
+
+.app-header .language-switcher-btn {
+  background: rgba(124, 110, 230, 0.2);
+  border: 1px solid rgba(124, 110, 230, 0.4);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.app-header .language-switcher-btn:hover {
+  background: rgba(124, 110, 230, 0.3);
+  border-color: rgba(124, 110, 230, 0.6);
+}
+
+@media (min-width: 900px) {
+  .app-header {
+    padding: 48px 64px 0;
+  }
+
+  .app-header--app {
+    padding-right: 96px;
+  }
+
+  .app-header-logo {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 104px 33px 0;
+  }
+
+  .app-header--app {
+    padding-right: 56px;
+    padding-top: 40px;
+  }
+
+  .app-header-logo {
+    font-size: 1.2rem;
+  }
+}

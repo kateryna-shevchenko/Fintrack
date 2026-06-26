@@ -1,10 +1,7 @@
 const User = require("../models/User");
-const { initializeDatabase, getPool } = require("../config/database");
+const { getPool } = require("../config/database");
 const crypto = require("crypto");
 const { sendPasswordResetEmail } = require("../services/emailService");
-
-// Initialize database connection when controller loads
-initializeDatabase().catch(console.error);
 
 const register = async (req, res) => {
   try {

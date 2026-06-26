@@ -4,7 +4,7 @@ import "../../styles/auth.css";
 import authService from "../../services/authService";
 import { translate } from "../../utils/dictionary";
 import { useLanguage } from "../../context/LanguageContext";
-import LanguageSwitcher from "../ui/LanguageSwitcher";
+import AppHeader from "../ui/AppHeader";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -83,10 +83,7 @@ const Register = () => {
       <button className="back-btn" onClick={() => navigate("/login")}>
         &#8592;
       </button>
-      <div className="logo-lang-header">
-        <span className="logo-top">FinTrack</span>
-        <LanguageSwitcher />
-      </div>
+      <AppHeader showLanguageSwitcher />
       <div className="login-center">
         <h1 className="login-title">{translate("signUp")}</h1>
         <p className="register-subtitle">

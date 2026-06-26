@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/introStart.css";
 import { translate } from "../utils/dictionary";
 import { useLanguage } from "../context/LanguageContext";
-import LanguageSwitcher from "./ui/LanguageSwitcher";
+import AppHeader from "./ui/AppHeader";
 
 const Intro = () => {
   const navigate = useNavigate();
@@ -10,10 +10,7 @@ const Intro = () => {
 
   return (
     <div className="intro-gradient-bg">
-      <div className="logo-lang-header">
-        <span className="logo-top">FinTrack</span>
-        <LanguageSwitcher />
-      </div>
+      <AppHeader showLanguageSwitcher />
       <div className="intro-center">
         <h1 className="intro-title">
           {language === "en" ? (

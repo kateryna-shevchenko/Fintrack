@@ -2,6 +2,7 @@ import { useRouteError, Link, useNavigate } from "react-router-dom"
 
 // library imports
 import { HomeIcon, ArrowUturnLeftIcon } from "@heroicons/react/24/solid"
+import AppHeader from "../components/ui/AppHeader"
 
 const Error = () => {
   const error = useRouteError();
@@ -9,6 +10,7 @@ const Error = () => {
 
   return (
     <div className="error">
+      <AppHeader />
       <h1>Uh oh! We’ve got a problem.</h1>
       <p>{error.message || error.statusText}</p>
       <div className="flex-md">

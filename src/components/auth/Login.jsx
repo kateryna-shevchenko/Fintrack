@@ -4,7 +4,7 @@ import "../../styles/introStart.css";
 import authService from "../../services/authService";
 import { translate } from "../../utils/dictionary";
 import { useLanguage } from "../../context/LanguageContext";
-import LanguageSwitcher from "../ui/LanguageSwitcher";
+import AppHeader from "../ui/AppHeader";
 import ForgotPasswordModal from "./ForgotPasswordModal";
 
 const Login = () => {
@@ -45,10 +45,7 @@ const Login = () => {
 
   return (
     <div className="intro-gradient-bg">
-      <div className="logo-lang-header">
-        <span className="logo-top">FinTrack</span>
-        <LanguageSwitcher />
-      </div>
+      <AppHeader showLanguageSwitcher />
       <div className="login-center">
         <h1 className="login-title">{translate("welcomeBack")}</h1>
         {successMessage && <p className="success-message">{successMessage}</p>}

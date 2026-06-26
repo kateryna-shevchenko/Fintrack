@@ -4,6 +4,7 @@ import { translate } from "../utils/dictionary";
 import { useLanguage } from "../context/LanguageContext";
 import getApiBaseUrl from "../config/api.js";
 import "../styles/auth.css";
+import AppHeader from "../components/ui/AppHeader";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -74,6 +75,7 @@ const ResetPassword = () => {
   if (success) {
     return (
       <div className="auth-container">
+        <AppHeader showLanguageSwitcher />
         <div className="auth-form">
           <h1>✅ {translate(language, "passwordResetSuccess")}</h1>
           <p>Redirecting to login...</p>
@@ -87,6 +89,7 @@ const ResetPassword = () => {
 
   return (
     <div className="auth-container">
+      <AppHeader showLanguageSwitcher />
       <div className="auth-form">
         <h1>{translate(language, "resetPassword")}</h1>
 
